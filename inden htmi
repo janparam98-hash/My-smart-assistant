@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My Smart Assistant</title>
+<style>
+body{text-align:center; font-family:sans-serif; background:#0f172a; color:white; padding-top:50px}
+button{padding:20px 40px; font-size:20px; border-radius:50px; background:#22c55e; color:white; border:none}
+#text{margin-top:30px; font-size:22px}
+</style>
+</head>
+<body>
+<h1>My Voice Assistant 🎤</h1>
+<button onclick="start()">🎤 Bolen / Speak</button>
+<p id="text">Yahan aap ki awaz ayegi...</p>
+<script>
+function start(){
+ const rec = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+ rec.lang='ur-PK';
+ rec.onresult = e => {
+   document.getElementById('text').innerText = e.results[0][0].transcript;
+   let msg = new SpeechSynthesisUtterance("Aap ne kaha " + e.results[0][0].transcript);
+   speechSynthesis.speak(msg);
+ };
+ rec.start();
+}
+</script>
+</body>
+</html>
